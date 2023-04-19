@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/admin_main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </header>
+        <div class="main">
+            <h1 th:text="${title}"></h1>
+            <a class="btn_add" href="/admin/user/add">Добавить пользователя</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ФИО</th>
+                        <th>Логин</th>
+                        <th>Роль</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tr th:each="user : ${userList}">
+                    <td th:text="${user.getId}"></td>
+                    <td th:text="${user.getFullName}"></td>
+                    <td th:text="${user.getLogin}"></td>
+                    <td th:text="${user.getRoleValue}"></td>
+                    <td class="btn_box"><a th:href="@{/admin/user/details/{id}(id=${user.getId()})}">детали</a></td>
+                </tr>
+            </table>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+    </body>
+</html>

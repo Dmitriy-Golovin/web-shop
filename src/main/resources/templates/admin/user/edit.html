@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/admin_main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </header>
+        <div class="main">
+            <h1 th:text="${title}"></h1>
+            <form th:method="POST" th:action="@{/admin/user/edit/{id}(id=${edit_person.getId()})}" th:object="${edit_person}">
+                <label for="role">Роль</label>
+                <select class="field" id="role" th:field="*{role}">
+                    <option th:each="enum : ${T(com.example.shop.enumm.UserRoleSelect).values()}"
+                        th:text="${enum.getDisplayValue()}"
+                        th:value="${enum}">
+                    </option>
+                </select>
+                <div class="field_note_error" th:if="${error != null}" th:text="${error}"></div>
+                <input class="btn_edit" type="submit" value="Редактировать">
+            </form>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+    </body>
+</html>

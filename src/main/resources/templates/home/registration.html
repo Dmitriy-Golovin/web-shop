@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+        </header>
+        <div class="main">
+            <div class="auth_wrapper">
+                <div class="auth_box">
+                    <div class="title title_reg">
+                        <h2>Регистрация нового аккаунта</h2>
+                        <p>Уже зарегистрированы? <a href="/authentication">войти</a></p>
+                    </div>
+                    <form th:method="POST" th:action="@{/registration}" th:object="${person}">
+                        <label for="fullName">ФИО: </label>
+                        <input class="field" type="text" th:field="*{fullName}" id="fullName">
+                        <div class="field_note_error" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></div>
+                        <label for="login">Логин: </label>
+                        <input class="field" type="text" th:field="*{login}" id="login">
+                        <div class="field_note_error" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+                        <label for="password">Пароль: </label>
+                        <input class="field" type="password" th:field="*{password}" id="password">
+                        <div class="field_note_error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                        <div class="btn_box">
+                            <input class="btn_edit" type="submit" value="Зарегистрироваться">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+    </body>
+</html>

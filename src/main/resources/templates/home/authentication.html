@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+        </header>
+        <div class="main">
+            <div class="auth_wrapper">
+                <div class="auth_box">
+                    <div class="title">
+                        <h2>Войти в свой аккаунт</h2>
+                        <p>или <a href="/registration">зарегистрироваться</a></p>
+                    </div>
+                    <form th:method="POST" th:action="@{process_login}">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <input class="field" type="text" placeholder="Введите логин" name="username" id="username">
+                        <input class="field" type="password" placeholder="Введите пароль" name="password" id="password">
+                        <div class="field_note_error" th:if="${param.error}">
+                            Неправильный логин или пароль
+                        </div>
+                        <div class="btn_box">
+                            <input class="btn_edit" type="submit" value="Войти">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+    </body>
+</html>
