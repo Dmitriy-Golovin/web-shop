@@ -22,6 +22,10 @@
             </form>
         </header>
         <div class="main">
+            <ul class="bread_crumb">
+                <li><a th:href="@{/admin/user}">Список пользователей</a></li>
+                <li th:text="${title}"></li>
+            </ul>
             <h1 th:text="${title}"></h1>
             <a class="btn_edit" th:href="@{/admin/user/edit/{id}(id=${person.getId()})}">Редактировать</a>
             <div class="info_container">
@@ -30,16 +34,20 @@
                     <div th:text="${person.getId}"></div>
                 </div>
                 <div>
-                    <div>Название</div>
+                    <div>ФИО</div>
                     <div th:text="${person.getFullName}"></div>
                 </div>
                 <div>
-                    <div>Цена</div>
+                    <div>Логин</div>
                     <div th:text="${person.getLogin}"></div>
                 </div>
                 <div>
-                    <div>Вес</div>
+                    <div>Роль</div>
                     <div th:text="${person.getRoleValue}"></div>
+                </div>
+                <div>
+                    <div>Дата создания</div>
+                    <div th:text="${#temporals.format(person.getCreatedAt(), 'dd-MMM-yyyy')}"></div>
                 </div>
             </div>
         </div>

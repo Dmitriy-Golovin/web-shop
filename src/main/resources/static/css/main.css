@@ -39,6 +39,7 @@ header a, footer a {
 header .logo {
     font-size: 30px;
     font-weight: 700;
+    white-space: nowrap;
 }
 
 .main {
@@ -217,6 +218,37 @@ form label {
     cursor: pointer;
     margin-left: auto;
     display: none;
+}
+
+.bread_crumb {
+    display: flex;
+    column-gap: 5px;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 10px 0;
+    padding: 5px;
+    border-radius: 3px;
+    background: #E6E6E6;
+}
+
+.bread_crumb li {
+    color: #6E6E6E; 
+}
+
+.bread_crumb li > a:hover {
+    color: #000;
+}
+
+.bread_crumb li > a {
+    color: #585858;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.bread_crumb li:not(:last-child)::after {
+    content: '/';
+    color: #6E6E6E;
+    margin-left: 5px;
 }
 
 @media (min-width: 768px) {

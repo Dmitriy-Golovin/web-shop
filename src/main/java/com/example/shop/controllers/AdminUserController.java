@@ -30,7 +30,6 @@ public class AdminUserController {
     public String index(Model model) {
         model.addAttribute("userList", personService.getAllUser());
         model.addAttribute("title", "Список пользователей");
-        System.out.println(com.example.shop.enumm.UserRole.values());
         return "admin/user/list";
     }
 
@@ -43,7 +42,7 @@ public class AdminUserController {
     }
 
     @GetMapping("/admin/user/edit/{id}")
-    public String editProduct(@PathVariable("id") int id, Model model){
+    public String editUser(@PathVariable("id") int id, Model model){
         Person personEdit = personService.getPersonId(id);
         model.addAttribute("edit_person", personEdit);
         model.addAttribute("title", "Редактировать пользователя: " + personEdit.getFullName());
@@ -51,14 +50,14 @@ public class AdminUserController {
     }
 
     @PostMapping("/admin/user/edit/{id}")
-    public String edit_Product(@RequestParam("role") String role, @PathVariable("id") int id, Model model){
+    public String editUser(@RequestParam("role") String role, @PathVariable("id") int id, Model model){
         Person person = personService.getPersonId(id);
 
         if (role.isEmpty()) {
             model.addAttribute("edit_person", person);
             model.addAttribute("title", "Редактировать пользователя: " + person.getFullName());
             model.addAttribute("error", "Роль не может быть пустой");
-            System.out.println(role);
+
             return "admin/user/edit";
         }
 

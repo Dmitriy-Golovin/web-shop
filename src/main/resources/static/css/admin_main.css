@@ -62,3 +62,7 @@ table td {
     padding: 10px;
     box-sizing: border-box;
 }
+
+.empty_list_note {
+    color: #6E6E6E;
+}

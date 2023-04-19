@@ -23,21 +23,15 @@
         </header>
         <div class="main">
             <ul class="bread_crumb">
-                <li><a th:href="@{/admin/user}">Список пользователей</a></li>
-                <li><a th:href="@{/admin/user/details/{id}(id=${edit_person.getId()})}" th:text="${'Пользователь: ' + edit_person.getFullName}"></a></li>
+                <li><a th:href="@{/admin/category}">Список категорий</a></li>
                 <li th:text="${title}"></li>
             </ul>
             <h1 th:text="${title}"></h1>
-            <form th:method="POST" th:action="@{/admin/user/edit/{id}(id=${edit_person.getId()})}" th:object="${edit_person}">
-                <label for="role">Роль</label>
-                <select class="field" id="role" th:field="*{role}">
-                    <option th:each="enum : ${T(com.example.shop.enumm.UserRoleSelect).values()}"
-                        th:text="${enum.getDisplayValue()}"
-                        th:value="${enum}">
-                    </option>
-                </select>
-                <div class="field_note_error" th:if="${error != null}" th:text="${error}"></div>
-                <input class="btn_edit" type="submit" value="Редактировать">
+            <form th:method="POST" th:action="@{/admin/category/add}" th:object="${category}">
+                <label for="title">Название</label>
+                <input class="field" type="text" th:field="*{title}" id="title">
+                <div class="field_note_error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                <input class="btn_add" type="submit" value="Добавить">
             </form>
         </div>
         <footer>

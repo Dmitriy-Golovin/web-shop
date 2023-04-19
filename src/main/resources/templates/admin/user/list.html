@@ -22,6 +22,9 @@
             </form>
         </header>
         <div class="main">
+            <ul class="bread_crumb">
+                <li th:text="${title}"></li>
+            </ul>
             <h1 th:text="${title}"></h1>
             <a class="btn_add" href="/admin/user/add">Добавить пользователя</a>
             <table>
@@ -31,6 +34,7 @@
                         <th>ФИО</th>
                         <th>Логин</th>
                         <th>Роль</th>
+                        <th>Дата создания</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -39,6 +43,7 @@
                     <td th:text="${user.getFullName}"></td>
                     <td th:text="${user.getLogin}"></td>
                     <td th:text="${user.getRoleValue}"></td>
+                    <td th:text="${#temporals.format(user.getCreatedAt(), 'dd-MMM-yyyy')}"></td>
                     <td class="btn_box"><a th:href="@{/admin/user/details/{id}(id=${user.getId()})}">детали</a></td>
                 </tr>
             </table>

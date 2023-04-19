@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Category {
@@ -20,6 +22,9 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @NotEmpty(message = "Название не может быть пустым")
+    @Size(min = 5, max = 100, message = "Название категории должно быть от 5 до 100 символов")
+    @Column(name = "title")
     private String title;
 
     @OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
