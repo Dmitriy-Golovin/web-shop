@@ -10,6 +10,13 @@
     <body>
         <header>
             <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0">
+                <li><a href="/admin/user">Пользователи</a></li>
+                <li><a href="/admin/category">Категории</a></li>
+                <li><a href="/admin/product">Товары</a></li>
+                <li><a href="/admin/order">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
             <form class="logout_form" th:method="POST" th:action="@{/logout}">
                 <input type="submit" value="Выйти">
             </form>
@@ -31,5 +38,6 @@
         <footer>
             <a class="logo" href="/">web-shop.ru</a>
         </footer>
+        <script src="/js/main.js"></script>
     </body>
 </html>
