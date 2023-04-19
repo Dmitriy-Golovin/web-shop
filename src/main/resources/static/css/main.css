@@ -4,7 +4,7 @@
 }
 
 html, body {
-    height: 100%;
+    min-height: 100vh;
     margin: 0;
     padding: 0;
 }
@@ -46,6 +46,7 @@ header .logo {
     flex: 1 0 auto;
     padding: 0 var(--padding);
     box-sizing: border-box;
+    margin: 25px 0;
 }
 
 .auth_wrapper {
@@ -97,6 +98,18 @@ header .logo {
     margin-top: 20px;
 }
 
+.field_text {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    border: none;
+    outline: 1px solid #000;
+    box-sizing: border-box;
+    resize: none;
+}
+
 .field {
     width: 100%;
     font-size: 18px;
@@ -108,7 +121,7 @@ header .logo {
     box-sizing: border-box;
 }
 
-.field:focus {
+.field:focus, .field_text:focus {
     outline: 2px solid var(--color-main);
 }
 

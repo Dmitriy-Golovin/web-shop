@@ -143,4 +143,17 @@ public class Product {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
+
+    public List<ProductImage> getProductImageList() {
+        return this.productImageList;
+    }
+
+    public void setImageList(List<ProductImage> productImageList) {
+        this.productImageList = productImageList;
+    }
+
+    public void addImageToProduct(ProductImage image) {
+        image.setProduct(this);
+        productImageList.add(image);
+    }
 }

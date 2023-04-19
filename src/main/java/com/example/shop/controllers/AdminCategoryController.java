@@ -29,7 +29,7 @@ public class AdminCategoryController {
     public String index(Model model) {
         model.addAttribute("categoryList", categoryService.getAllCategory());
         model.addAttribute("title", "Список категорий");
-        System.out.println(categoryService.getAllCategory().size());
+
         return "admin/category/list";
     }
 

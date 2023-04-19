@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/admin_main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0">
+                <li><a href="/admin/user">Пользователи</a></li>
+                <li><a href="/admin/category">Категории</a></li>
+                <li><a href="/admin/product">Товары</a></li>
+                <li><a href="/admin/order">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </header>
+        <div class="main">
+            <ul class="bread_crumb">
+                <li><a th:href="@{/admin/product}">Список товаров</a></li>
+                <li th:text="${title}"></li>
+            </ul>
+            <h1 th:text="${title}"></h1>
+            <form th:method="POST" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data">
+                <label for="title">Название</label>
+                <input class="field" type="text" th:field="*{title}" id="title">
+                <div class="field_note_error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+                <label for="description">Описание</label>
+                <textarea class="field_text" rows="12" th:field="*{description}" id="description"></textarea>
+                <div class="field_note_error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                <label for="price">Цена</label>
+                <input class="field" type="number" min="1" step="0.01" th:field="*{price}" id="price">
+                <div class="field_note_error" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+                <label for="seller">Продавец</label>
+                <input class="field" type="text" th:field="*{seller}" id="seller">
+                <div class="field_note_error" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+                <label for="warehouse">Склад</label>
+                <input class="field" type="text" th:field="*{warehouse}" id="warehouse">
+                <div class="field_note_error" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+                <label for="category">Категория</label>
+                <select class="field" name="category" th:field="*{category}" id="category">
+                    <div th:each="element : ${categoryList}">
+                        <option th:text="${element.getTitle}" th:value="${element.getId}"></option>
+                    </div>
+                </select>
+                <div class="field_note_error" th:if="${error_category != null}" th:text="${error_category}"></div>
+                <input class="field" type="file" name="file">
+                <div class="field_note_error" th:if="${error_file != null}" th:text="${error_file}"></div>
+                <input class="btn_add" type="submit" value="Добавить">
+            </form>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

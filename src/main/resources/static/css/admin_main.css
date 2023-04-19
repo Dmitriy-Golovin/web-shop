@@ -34,6 +34,10 @@ table td {
     word-wrap: break-word;
 }
 
+table td img {
+    max-height: 200px;
+}
+
 .info_container {
     display: flex;
     flex-direction: column;

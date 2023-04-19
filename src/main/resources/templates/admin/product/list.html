@@ -26,27 +26,41 @@
                 <li th:text="${title}"></li>
             </ul>
             <h1 th:text="${title}"></h1>
-            <a class="btn_add" href="/admin/category/add">Добавить категорию</a>
-            <div th:if="${categoryList.size() > 0}">
+            <a class="btn_add" href="/admin/product/add">Добавить товар</a>
+            <div th:if="${productList.size() > 0}">
                 <table>
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Название</th>
+                            <th>Основное изображение</th>
+                            <th>Цена</th>
+                            <th>Склад</th>
+                            <th>Продавец</th>
                             <th>Дата создания</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tr th:each="category : ${categoryList}">
-                        <td th:text="${category.getId}"></td>
-                        <td th:text="${category.getTitle}"></td>
-                        <td th:text="${#temporals.format(category.getCreatedAt(), 'dd-MMM-yyyy')}"></td>
-                        <td class="btn_box"><a th:href="@{/admin/category/details/{id}(id=${category.getId()})}">детали</a></td>
+                    <tr th:each="product : ${productList}">
+                        <td th:text="${product.getId}"></td>
+                        <td th:text="${product.getTitle}"></td>
+                        <td>
+                            <div th:each="img : ${product.getProductImageList}">
+                                <div th:if="${img.getType() == 1}">
+                                    <img th:src="'/image/' + ${img.getFileName}">
+                                </div>
+                            </div>
+                        </td>
+                        <td th:text="${product.getPrice}"></td>
+                        <td th:text="${product.getWarehouse}"></td>
+                        <td th:text="${product.getSeller}"></td>
+                        <td th:text="${#temporals.format(product.getCreatedAt(), 'dd-MMM-yyyy')}"></td>
+                        <td class="btn_box"><a th:href="@{/admin/product/details/{id}(id=${product.getId()})}">детали</a></td>
                     </tr>
                 </table>
             </div>
-            <div th:if="${categoryList.size() <= 0}">
-                <h3 class="empty_list_note">В настоящее время категории отсутствуют, добавьте новую категорию</h3>
+            <div th:if="${productList.size() <= 0}">
+                <h3 class="empty_list_note">В настоящее время товары отсутствуют, добавьте новый товар</h3>
             </div>
         </div>
         <footer>
