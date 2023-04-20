@@ -45,10 +45,8 @@
                         <td th:text="${product.getId}"></td>
                         <td th:text="${product.getTitle}"></td>
                         <td>
-                            <div th:each="img : ${product.getProductImageList}">
-                                <div th:if="${img.getType() == 1}">
-                                    <img th:src="'/image/' + ${img.getFileName}">
-                                </div>
+                            <div th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 1}">
+                                <img th:src="'/image/' + ${img.getFileName}">
                             </div>
                         </td>
                         <td th:text="${product.getPrice}"></td>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0" th:if="${auth == true}">
+                <li><a href="/">Товары</a></li>
+                <li><a href="/cart">Корзина</a></li>
+                <li><a href="/orders">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <div class="logout_form" th:if="${auth == true}">
+                <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                    <input type="submit" value="Выйти">
+                </form>
+            </div>
+            <div class="login_reg_container" th:if="${auth == false}">
+                <a th:href="@{/authentication}">Вход</a>
+                <a th:href="@{/registration}">Регистрация</a>
+            </div>
+        </header>
+        <div class="main">
+            <ul class="bread_crumb">
+                <li th:text="${title}"></li>
+            </ul>
+            <h1 class="f_title">Товары нашего магазина</h1>
+            <div class="product_container">
+                <div class="product_item" th:each="product : ${productList}">
+                    <a th:href="@{/details/{id}(id=${product.getId})}">
+                        <div class="product_img_container" th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 1}">
+                            <img th:src="'/image/' + ${img.getFileName}">
+                        </div>
+                        <p class="el_price" th:text="${product.getPrice} + ' р.'"></p>
+                        <p class="el_title" th:text="${product.getTitle}"></p>
+                        <div class="hover_popup">подробнее</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

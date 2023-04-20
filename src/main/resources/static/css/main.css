@@ -20,7 +20,9 @@ a {
 }
 
 header {
-    position: relative;
+    position: fixed;
+    width: calc(100% - 2 * var(--padding));
+    z-index: 10;
 }
 
 header, footer {
@@ -47,6 +49,8 @@ header .logo {
     padding: 0 var(--padding);
     box-sizing: border-box;
     margin: 25px 0;
+    z-index: 1;
+    margin-top: 70px;
 }
 
 .auth_wrapper {
@@ -209,8 +213,19 @@ form label {
     background: transparent;
 }
 
-.logout_form > input[type="submit"]:hover, .nav_menu > li a:hover {
+.logout_form > input[type="submit"]:hover, .nav_menu > li a:hover, .login_reg_container a:hover {
     color: #D8D8D8;
+}
+
+.login_reg_container {
+    display: flex;
+    column-gap: 10px;
+}
+
+.login_reg_container a {
+    color: #FFF;
+    transition: .3s;
+    font-size: 18px;
 }
 
 .nav_menu {
@@ -268,8 +283,84 @@ form label {
     margin-top: 10px;
 }
 
+.product_container {
+    display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 15px;
+}
+
+.product_item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.product_item > a {
+    position: relative;
+}
+
+.product_img_container {
+    height: 270px;
+    overflow: hidden;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product_img_container img {
+    object-fit: cover;
+    object-position: center;
+}
+
+.product_container .el_price {
+    padding: 15px 5px 10px 5px;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+    color: #000;
+}
+
+.product_container .el_title {
+    padding: 0 5px 15px 5px;
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #000;
+}
+
+.product_item:hover .hover_popup {
+    opacity: 1;
+}
+
+.hover_popup {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0;
+    top: 0;
+    color: #FFF;
+    font-size: 22px;
+    background: rgba(0, 0, 0, 0.5);
+    transition: .4s;
+    opacity: 0;
+}
+
+.f_title {
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid var(--color-main);
+}
+
 @media (min-width: 768px) {
-    .logout_form {
+    .logout_form, .login_reg_container {
         margin-left: auto;
     }
 }
@@ -315,5 +406,13 @@ form label {
         max-height: 1000px !important;
         pointer-events: unset !important;
         opacity: 1 !important;
+    }
+}
+
+@media (max-width: 440px) {
+    .product_container {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 15px;
     }
 }

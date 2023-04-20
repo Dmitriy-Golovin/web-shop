@@ -42,10 +42,8 @@
                 <div>
                     <div>Основное изображение</div>
                     <div>
-                        <div th:each="img : ${product.getProductImageList}">
-                            <div th:if="${img.getType() == 1}">
-                                <img class="info_container_img" th:src="'/image/' + ${img.getFileName}">
-                            </div>
+                        <div th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 1}">
+                            <img class="info_container_img" th:src="'/image/' + ${img.getFileName}">
                         </div>
                     </div>
                 </div>
@@ -53,12 +51,10 @@
                     <div>Дополнительные изображения</div>
                     <div>
                         <div class="image_list_container">
-                            <div th:each="img : ${product.getProductImageList}">
-                                <div th:if="${img.getType() == 2}">
-                                    <div class="image_item">
-                                        <img class="info_container_img" th:src="'/image/' + ${img.getFileName}">
-                                        <a class="btn_delete btn_small" th:href="@{|/admin/product/delete-secondary-img/${product.getId}/${img.getId}|}">Удалить</a>
-                                    </div>
+                            <div th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 2}">
+                                <div class="image_item">
+                                    <img class="info_container_img" th:src="'/image/' + ${img.getFileName}">
+                                    <a class="btn_delete btn_small" th:href="@{|/admin/product/delete-secondary-img/${product.getId}/${img.getId}|}">Удалить</a>
                                 </div>
                             </div>
                         </div>

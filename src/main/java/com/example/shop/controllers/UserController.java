@@ -21,6 +21,6 @@ public class UserController {
             return "redirect:/admin/user";
         }
 
-        return "user/cart";
+        return "front/user/cart";
     }
 }

@@ -47,7 +47,7 @@ public class Product {
     @NotEmpty(message = "Информация о продавце не может быть пустой")
     private String seller;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
