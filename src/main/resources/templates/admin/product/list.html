@@ -46,7 +46,7 @@
                         <td th:text="${product.getTitle}"></td>
                         <td>
                             <div th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 1}">
-                                <img th:src="'/image/' + ${img.getFileName}">
+                                <img class="zoom_img" th:src="'/image/' + ${img.getFileName}">
                             </div>
                         </td>
                         <td th:text="${product.getPrice}"></td>
@@ -64,6 +64,9 @@
         <footer>
             <a class="logo" href="/">web-shop.ru</a>
         </footer>
+        <div class="modal" id="large_image" data-active="0">
+            <img src="">
+        </div>
         <script src="/js/main.js"></script>
     </body>
 </html>

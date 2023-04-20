@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0" th:if="${auth == true}">
+                <li><a href="/">Товары</a></li>
+                <li><a href="/cart">Корзина</a></li>
+                <li><a href="/orders">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <div class="logout_form" th:if="${auth == true}">
+                <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                    <input type="submit" value="Выйти">
+                </form>
+            </div>
+            <div class="login_reg_container" th:if="${auth == false}">
+                <a th:href="@{/authentication}">Вход</a>
+                <a th:href="@{/registration}">Регистрация</a>
+            </div>
+        </header>
+        <div class="main">
+            <ul class="bread_crumb">
+                <li><a th:href="@{/}">Товары</a></li>
+                <li th:text="${title}"></li>
+            </ul>
+            <h1 class="f_title" th:text="${title}"></h1>
+            <div class="info_box_top">
+                <div>
+                    <div class="p_main_img_box" th:each="img : ${product.getProductImageList}" th:if="${img.getType == 1}">
+                        <img class="zoom_img" th:src="${'/image/' + img.getFileName}">
+                    </div>
+                    <div class="p_secondary_img_box">
+                        <img class="thumb_img" th:each="img : ${product.getProductImageList}" th:src="${'/image/' + img.getFileName}">
+                    </div>
+                </div>
+                <div class="">
+                    <p class="el_price" th:text="${'Цена: ' + product.getPrice} + ' р.'"></p>
+                    <p th:text="'Категория: ' + ${product.getCategory.getTitle}"></p>
+                    <p class="el_seller" th:text="${'Продавец: ' + product.getSeller}"></p>
+                    <p class="el_warehouse" th:text="${'Местонахождение товара: ' + product.getWarehouse}"></p>
+                    <form th:if="${auth == true}" th:method="POST" th:action="@{/cart/add}" th:object="${cart}">
+                        <input type="hidden"th:field="*{productId}" th:value="${product.getId}">
+                        <input type="hidden"th:field="*{personId}" th:value="${user.getId}">
+                        <input class="btn_add_cart" type="submit" value="Добавить в корзину">
+                    </form>
+                </div>
+            </div>
+            <div class="info_box_bottom">
+                <h3>Описание товара</h3>
+                <div class="el_description" th:text="${product.getDescription}"></div>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+        <div class="modal" id="large_image" data-active="0">
+            <img src="">
+        </div>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

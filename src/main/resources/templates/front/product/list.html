@@ -32,7 +32,7 @@
             <h1 class="f_title">Товары нашего магазина</h1>
             <div class="product_container">
                 <div class="product_item" th:each="product : ${productList}">
-                    <a th:href="@{/details/{id}(id=${product.getId})}">
+                    <a th:href="@{/product/{id}(id=${product.getId})}">
                         <div class="product_img_container" th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 1}">
                             <img th:src="'/image/' + ${img.getFileName}">
                         </div>
