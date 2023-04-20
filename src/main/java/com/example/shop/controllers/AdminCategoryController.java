@@ -63,14 +63,14 @@ public class AdminCategoryController {
     public String editCategory(@PathVariable("id") int id, Model model){
         Category categoryEdit = categoryService.getCategoryId(id);
         model.addAttribute("category", categoryEdit);
-        model.addAttribute("title", "Редактировать товар: " + categoryEdit.getTitle());
+        model.addAttribute("title", "Редактировать категорию: " + categoryEdit.getTitle());
         return "admin/category/edit";
     }
 
     @PostMapping("/admin/category/edit/{id}")
     public String editCategory(@ModelAttribute("category") @Valid Category category, BindingResult bindingResult, @PathVariable("id") int id, Model model){
         if (bindingResult.hasErrors()) {
-            model.addAttribute("title", "Редактировать товар: " + categoryService.getCategoryId(id).getTitle());
+            model.addAttribute("title", "Редактировать категорию: " + categoryService.getCategoryId(id).getTitle());
             return "admin/category/edit";
         }
 

@@ -11,4 +11,10 @@ window.onload = function() {
             menu.dataset.active = 0;
         }
     }
+
+    if (document.querySelector('.field_file')) {
+        document.querySelector('.field_file').onchange = function() {
+            this.closest('form').submit();
+        }
+    }
 }

@@ -264,6 +264,10 @@ form label {
     margin-left: 5px;
 }
 
+.mt-10 {
+    margin-top: 10px;
+}
+
 @media (min-width: 768px) {
     .logout_form {
         margin-left: auto;

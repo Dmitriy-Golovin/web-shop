@@ -38,10 +38,10 @@ public class ProductImage {
     }
 
     @Transient
-    private int mainType = 1;
+    private static int mainType = 1;
 
     @Transient
-    private int secondaryType = 2;
+    private static int secondaryType = 2;
 
     public ProductImage(String fileName, Integer type, Product product) {
         this.fileName = fileName;
@@ -98,5 +98,20 @@ public class ProductImage {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public static int getMainType() {
+        return mainType;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " id='" + getId() + "'" +
+            ", fileName='" + getFileName() + "'" +
+            ", type='" + getType() + "'" +
+            ", product='" + getProduct() + "'" +
+            ", createdAt='" + getCreatedAt() + "'" +
+            "}";
     }
 }
