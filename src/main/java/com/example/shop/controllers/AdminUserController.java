@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 import com.example.shop.enumm.UserRole;
 import com.example.shop.models.Person;
 import com.example.shop.services.PersonService;
@@ -36,6 +37,13 @@ public class AdminUserController {
     @GetMapping("/admin/user/details/{id}")
     public String details(@PathVariable("id") int id, Model model) {
         Person personDetails = personService.getPersonId(id);
+
+        if (personDetails == null) {
+            throw new ResponseStatusException (
+                HttpStatus.NOT_FOUND, "Пользователь не найден"
+            );
+        }
+
         model.addAttribute("person", personDetails);
         model.addAttribute("title", "Пользователь: " + personDetails.getFullName());
         return "admin/user/details";
@@ -44,6 +52,13 @@ public class AdminUserController {
     @GetMapping("/admin/user/edit/{id}")
     public String editUser(@PathVariable("id") int id, Model model){
         Person personEdit = personService.getPersonId(id);
+
+        if (personEdit == null) {
+            throw new ResponseStatusException (
+                HttpStatus.NOT_FOUND, "Пользователь не найден"
+            );
+        }
+
         model.addAttribute("edit_person", personEdit);
         model.addAttribute("title", "Редактировать пользователя: " + personEdit.getFullName());
         return "admin/user/edit";

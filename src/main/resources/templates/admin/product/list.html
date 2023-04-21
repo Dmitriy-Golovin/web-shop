@@ -33,6 +33,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Название</th>
+                            <th>Категория</th>
                             <th>Основное изображение</th>
                             <th>Цена</th>
                             <th>Склад</th>
@@ -44,6 +45,7 @@
                     <tr th:each="product : ${productList}">
                         <td th:text="${product.getId}"></td>
                         <td th:text="${product.getTitle}"></td>
+                        <td th:text="${product.getCategory.getTitle}"></td>
                         <td>
                             <div th:each="img : ${product.getProductImageList}" th:if="${img.getType() == 1}">
                                 <img class="zoom_img" th:src="'/image/' + ${img.getFileName}">

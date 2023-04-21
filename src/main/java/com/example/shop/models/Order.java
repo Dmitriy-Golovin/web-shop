@@ -1,7 +1,12 @@
 package com.example.shop.models;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.example.shop.enumm.OrderStatusList;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,6 +14,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
@@ -38,6 +44,9 @@ public class Order {
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "order")
+    private List<OrderStatus> orderStatusList = new ArrayList<>();
 
     @PrePersist
     private void init(){
@@ -109,5 +118,19 @@ public class Order {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public List<OrderStatus> getOrderStatusList() {
+        return this.orderStatusList;
+    }
+
+    public void addOrderStatus(OrderStatus status) {
+        status.setOrder(this);
+        orderStatusList.add(status);
+    }
+
+    public String getStatusValue() {
+        OrderStatusList[] statusList = OrderStatusList.values();
+        return statusList[this.getOrderStatusList().size() - 1].toString();
     }
 }

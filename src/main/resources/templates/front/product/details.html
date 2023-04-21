@@ -46,8 +46,9 @@
                     <p class="el_seller" th:text="${'Продавец: ' + product.getSeller}"></p>
                     <p class="el_warehouse" th:text="${'Местонахождение товара: ' + product.getWarehouse}"></p>
                     <form th:if="${auth == true}" th:method="POST" th:action="@{/cart/add}" th:object="${cart}">
-                        <input type="hidden"th:field="*{productId}" th:value="${product.getId}">
-                        <input type="hidden"th:field="*{personId}" th:value="${user.getId}">
+                        <input type="hidden" th:field="*{productId}" th:value="${cart.getProductId}" id="profuctId">
+                        <div class="field_note_error" th:if="${#fields.hasErrors('productId')}" th:errors="*{productId}"></div>
+                        <div class="field_note_error mt-10" th:if="${error != null}" th:text="${error}"></div>
                         <input class="btn_add_cart" type="submit" value="Добавить в корзину">
                     </form>
                 </div>

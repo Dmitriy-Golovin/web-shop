@@ -30,7 +30,7 @@ public class SecurityConfig {
             .and() 
             .formLogin().loginPage("/authentication")
             .loginProcessingUrl("/process_login")
-            .defaultSuccessUrl("/cart", true)
+            .defaultSuccessUrl("/auth", true)
             .failureUrl("/authentication?error")
             .and()
             .logout().logoutUrl("/logout").logoutSuccessUrl("/authentication");

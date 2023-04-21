@@ -47,6 +47,6 @@ public class AuthenticationController {
         }
         
         personService.register(person);
-        return "redirect:/cart";
+        return "redirect:/authentication";
     }
 }

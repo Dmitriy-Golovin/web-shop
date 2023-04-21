@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0">
+                <li><a href="/">Товары</a></li>
+                <li><a href="/cart">Корзина</a></li>
+                <li><a href="/orders">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </header>
+        <div class="main">
+            <h1 class="f_title" th:text="${title}"></h1>
+            <div th:if="${orderList.size() <= 0}">
+                <h3>Вы еще ничего не заказывали</h3>
+                <a class="btn_edit" href="/">перейти к покупкам</a>
+            </div>
+            <div class="product_list">
+                <div class="info_box_top" th:each="order : ${orderList}">
+                    <div>
+                        <div class="p_main_img_box" th:each="img : ${order.getProduct.getProductImageList}" th:if="${img.getType == 1}">
+                            <img class="zoom_img" th:src="${'/image/' + img.getFileName}">
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="el_title"><a th:href="@{/product/{id}(id=${order.getProduct.getId})}" th:text="${order.getProduct.getTitle}"></a></p>
+                        <p class="el_price" th:text="${'Стоимость заказа: ' + order.getPrice} + ' р.'"></p>
+                        <p th:text="${'Количество товаров в заказу: ' + order.getCount} + ' шт.'"></p>
+                        <p th:text="${'Статус заказа: ' + order.getStatusValue}"></p>
+                        <a class="btn_edit btn_small show_order_history" href="#">Показать историю</a>
+                        <div class="modal order_history_modal" data-active="0">
+                            <div class="order_history_container">
+                                <h3 class="f_title">История изменения статуса</h3>
+                                <div>
+                                    <div class="order_status_item" th:each="statusItem : ${order.getOrderStatusList}">
+                                        <p th:text="${#temporals.format(statusItem.getCreatedAt(), 'H:m dd-MMM-yyyy')}"></p>
+                                        <span></span>
+                                        <p th:text="${statusItem.getStatusValue}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+        <div class="modal" id="large_image" data-active="0">
+            <img src="">
+        </div>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

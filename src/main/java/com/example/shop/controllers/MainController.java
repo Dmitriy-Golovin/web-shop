@@ -47,22 +47,23 @@ public class MainController {
     @GetMapping("/product/{id}")
     public String productDetails(@PathVariable("id") int id, Model model) throws ResponseStatusException {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        if (authentication.getPrincipal() == "anonymousUser") {
-            model.addAttribute("auth", false);
-        } else {
-            PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
-            model.addAttribute("auth", true);
-            model.addAttribute("user", personDetails.getPerson());
-            model.addAttribute("cart", new Cart());
-        }
-
         Product product = productService.getProductId(id);
 
         if (product == null) {
             throw new ResponseStatusException (
                 HttpStatus.NOT_FOUND, "Товар не найден"
             );
+        }
+
+        if (authentication.getPrincipal() == "anonymousUser") {
+            model.addAttribute("auth", false);
+        } else {
+            PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+            Cart cart = new Cart();
+            cart.setProductId(product.getId());
+            model.addAttribute("auth", true);
+            model.addAttribute("user", personDetails.getPerson());
+            model.addAttribute("cart", cart);
         }
 
         model.addAttribute("product", product);

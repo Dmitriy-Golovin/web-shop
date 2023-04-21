@@ -41,4 +41,20 @@ window.onload = function() {
             modal.dataset.active = 1;
         }
     });
+
+    document.querySelectorAll('.show_order_history').forEach(function(el) {
+        el.onclick = function(e) {
+            let modal = this.parentElement.querySelector('.modal');
+
+            modal.onclick = () => {
+                modal.classList.remove('modal_active');
+                modal.dataset.active = 0;
+            }
+    
+            modal.classList.add('modal_active');
+            modal.dataset.active = 1;
+            
+            e.preventDefault();
+        }
+    });
 }

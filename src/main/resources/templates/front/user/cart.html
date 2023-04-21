@@ -9,12 +9,55 @@
     <body>
         <header>
             <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0">
+                <li><a href="/">Товары</a></li>
+                <li><a href="/cart">Корзина</a></li>
+                <li><a href="/orders">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
         </header>
         <div class="main">
-            <h1>Cart</h1>
+            <h1 class="f_title" th:text="${title}"></h1>
+            <div th:if="${productList.size() <= 0}">
+                <h3>Ваша корзина пуста</h3>
+                <a class="btn_edit" href="/">перейти к покупкам</a>
+            </div>
+            <div class="product_list">
+                <div class="info_box_top" th:each="product : ${productList}">
+                    <div>
+                        <div class="p_main_img_box" th:each="img : ${product.getProductImageList}" th:if="${img.getType == 1}">
+                            <img class="zoom_img" th:src="${'/image/' + img.getFileName}">
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="el_title"><a th:href="@{/product/{id}(id=${product.getId})}" th:text="${product.getTitle}"></a></p>
+                        <p class="el_price" th:text="${'Цена: ' + product.getPrice} + ' р.'"></p>
+                        <div class="field_note_error mt-10" th:if="${error_delete != null}" th:text="${error_delete}"></div>
+                        <div class="field_note_error mt-10" th:if="${error != null}" th:text="${error}"></div>
+                        <form class="form_order" th:method="POST" th:action="@{/order/add}">
+                            <fieldset>
+                                <input type="hidden" name="productId" th:value="${product.getId}">
+                                <div class="form_field_conteiner">
+                                    <label>Количество:</label>
+                                    <input type="number" name="count" value="1" min="1" max="10" step="1">
+                                </div>
+                                <input class="btn_edit" type="submit" value="Оформить заказ">
+                                <a class="btn_delete" th:href="@{/cart/delete/{id}(id=${product.getId})}">Удалить</a>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <footer>
             <a class="logo" href="/">web-shop.ru</a>
         </footer>
+        <div class="modal" id="large_image" data-active="0">
+            <img src="">
+        </div>
+        <script src="/js/main.js"></script>
     </body>
 </html>

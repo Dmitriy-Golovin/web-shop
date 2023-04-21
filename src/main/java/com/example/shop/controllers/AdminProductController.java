@@ -24,6 +24,8 @@ import java.util.UUID;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @Controller
 public class AdminProductController {
@@ -114,6 +116,13 @@ public class AdminProductController {
     @GetMapping("/admin/product/details/{id}")
     public String details(@PathVariable("id") int id, Model model) {
         Product productDetails = productService.getProductId(id);
+
+        if (productDetails == null) {
+            throw new ResponseStatusException (
+                HttpStatus.NOT_FOUND, "Товар не найден"
+            );
+        }
+
         model.addAttribute("product", productDetails);
         model.addAttribute("title", "Товар: " + productDetails.getTitle());
         return "admin/product/details";
@@ -122,6 +131,13 @@ public class AdminProductController {
     @GetMapping("/admin/product/edit/{id}")
     public String editProduct(@PathVariable("id") int id, Model model) {
         Product product = productService.getProductId(id);
+
+        if (product == null) {
+            throw new ResponseStatusException (
+                HttpStatus.NOT_FOUND, "Товар не найден"
+            );
+        }
+
         model.addAttribute("product", product);
         model.addAttribute("title", "Редактировать товар: " + product.getTitle());
         model.addAttribute("categoryList", categoryService.getAllCategory());

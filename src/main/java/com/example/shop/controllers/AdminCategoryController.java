@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 import com.example.shop.models.Category;
 import com.example.shop.models.Product;
 import com.example.shop.services.CategoryService;
@@ -54,6 +55,13 @@ public class AdminCategoryController {
     @GetMapping("/admin/category/details/{id}")
     public String details(@PathVariable("id") int id, Model model) {
         Category categoryDetails = categoryService.getCategoryId(id);
+
+        if (categoryDetails == null) {
+            throw new ResponseStatusException (
+                HttpStatus.NOT_FOUND, "Категория не найденf"
+            );
+        }
+
         model.addAttribute("category", categoryDetails);
         model.addAttribute("title", "Категория: " + categoryDetails.getTitle());
         return "admin/category/details";
@@ -62,6 +70,13 @@ public class AdminCategoryController {
     @GetMapping("/admin/category/edit/{id}")
     public String editCategory(@PathVariable("id") int id, Model model){
         Category categoryEdit = categoryService.getCategoryId(id);
+
+        if (categoryEdit == null) {
+            throw new ResponseStatusException (
+                HttpStatus.NOT_FOUND, "Категория не найденf"
+            );
+        }
+
         model.addAttribute("category", categoryEdit);
         model.addAttribute("title", "Редактировать категорию: " + categoryEdit.getTitle());
         return "admin/category/edit";
