@@ -576,6 +576,15 @@ h3.f_title {
     font-size: 1.2em;
 }
 
+.button_box_right {
+    text-align: right;
+}
+
+form > fieldset {
+    border-radius: 3px;
+    padding-top: 10px;
+}
+
 #large_image > img {
     max-width: 100%;
     max-height: 100%;

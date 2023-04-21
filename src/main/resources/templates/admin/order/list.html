@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/admin_main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0">
+                <li><a href="/admin/user">Пользователи</a></li>
+                <li><a href="/admin/category">Категории</a></li>
+                <li><a href="/admin/product">Товары</a></li>
+                <li><a href="/admin/order">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </header>
+        <div class="main">
+            <ul class="bread_crumb">
+                <li th:text="${title}"></li>
+            </ul>
+            <h1 th:text="${title}"></h1>
+            <form th:method="GET" th:action="@{/admin/order}">
+                <fieldset>
+                    <label for="query">Введите 4 последних символа номера заказа</label>
+                    <input class="field" type="text" name="query" id="query">
+                    <div class="button_box_right">
+                        <input class="btn_add ml-auto" type="submit" value="Поиск">
+                    </div>
+                </fieldset>
+            </form>
+            <div th:if="${orderList.size() > 0}">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Уникальный номер</th>
+                            <th>Название товара</th>
+                            <th>Изображение товара</th>
+                            <th>Пользователь</th>
+                            <th>Стоимость</th>
+                            <th>Количество</th>
+                            <th>Статус заказа</th>
+                            <th>Дата создания</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tr th:each="order : ${orderList}">
+                        <td th:text="${order.getId}"></td>
+                        <td th:text="${order.getNumber}"></td>
+                        <td>
+                            <a th:href="@{/admin/product/details/{id}(id=${order.getProduct.getId})}" th:text="${order.getProduct.getTitle}"></a>
+                        </td>
+                        <td>
+                            <div th:each="img : ${order.getProduct.getProductImageList}" th:if="${img.getType() == 1}">
+                                <img class="zoom_img" th:src="'/image/' + ${img.getFileName}">
+                            </div>
+                        </td>
+                        <td>
+                            <a th:href="@{/admin/user/details/{id}(id=${order.getPerson.getId})}" th:text="${order.getPerson.getFullName}"></a>
+                        </td>
+                        <td th:text="${order.getPrice}"></td>
+                        <td th:text="${order.getCount}"></td>
+                        <td th:text="${order.getStatusValue}"></td>
+                        <td th:text="${#temporals.format(order.getCreatedAt(), 'dd-MMM-yyyy')}"></td>
+                        <td class="btn_box"><a th:href="@{/admin/order/details/{id}(id=${order.getId()})}">детали</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div th:if="${orderList.size() <= 0}">
+                <h3 class="empty_list_note">В настоящее время заказы отсутствуют</h3>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+        <div class="modal" id="large_image" data-active="0">
+            <img src="">
+        </div>
+        <script src="/js/main.js"></script>
+    </body>
+</html>

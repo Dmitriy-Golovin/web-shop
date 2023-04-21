@@ -18,6 +18,14 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
+    }
+
+    public List<Order> getByNumberLastPartString(String query) {
+        return orderRepository.findByNumberLastPartLikeString(query);
+    }
+
     public List<Order> getByPersonId(int personId) {
         return orderRepository.findByPersonId(personId);
     }
