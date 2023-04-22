@@ -30,6 +30,49 @@
                 <li th:text="${title}"></li>
             </ul>
             <h1 class="f_title">Товары нашего магазина</h1>
+            <form class="filter_form" th:method="POST" th:action="@{/}">
+                <fieldset>
+                    <legend>Поиск и фильтрация</legend>
+                    <input class="field field_front" type="text" name="search" placeholder="Введите название товара">
+                    <div class="button_box_center" data-active="0">
+                        <img class="left" src="/img/arrow-down_green_icon.png">
+                        <span class="added_fields_btn">дополнительные поля</span>
+                        <img  class="right" src="/img/arrow-down_green_icon.png">
+                        <div class="added_field_container">
+                            <div class="group_col_2">
+                                <div class="inline_group_field">
+                                    <p class="label_field">Цена:</p>
+                                    <div class="field_box">
+                                        <label for="prce_from">от</label>
+                                        <input type="number" name="price_from" id="prce_from" min="1" step="0.01">
+                                        <label for="prce_to">до</label>
+                                        <input type="number" name="price_to" id="prce_to" min="1" step="0.01">
+                                    </div>
+                                </div>
+                                <div class="inline_group_field">
+                                    <p class="label_field">Сортировка по цене:</p>
+                                    <div class="field_box">
+                                        <input type="radio" name="price_sort" value="asc" id="price_sort_asc">
+                                        <label for="price_sort_asc">по возрастанию</label>
+                                        <input type="radio" name="price_sort" value="desc" id="price_sort_desc">
+                                        <label for="price_sort_desc">по убыванию</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <select class="field field_front" name="categoryId">
+                                <option value="">Выберите категорию</option>
+                                <option th:each="category : ${categoryList}"
+                                    th:text="${category.getTitle}"
+                                    th:value="${category.getId}">
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button_box_right">
+                        <input class="btn_add ml-auto btn_small" type="submit" value="Поиск">
+                    </div>
+                </fieldset>
+            </form>
             <div class="product_container">
                 <div class="product_item" th:each="product : ${productList}">
                     <a th:href="@{/product/{id}(id=${product.getId})}">

@@ -9,6 +9,8 @@ import com.example.shop.models.Category;
 import com.example.shop.models.Product;
 import com.example.shop.models.ProductImage;
 import com.example.shop.repositories.ProductRepository;
+import com.example.shop.specifications.ProductSpecification;
+
 import org.springframework.beans.factory.annotation.Value;
 
 @Service
@@ -34,6 +36,10 @@ public class ProductService {
 
     public List<Product> getAllProduct() {
         return productRepository.findAll();
+    }
+
+    public List<Product> getProductByFilter(ProductSpecification filter) {
+        return productRepository.findAll(filter);
     }
 
     @Transactional

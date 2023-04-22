@@ -49,7 +49,6 @@ header .logo {
     padding: 0 var(--padding);
     box-sizing: border-box;
     margin: 70px 0 25px 0;
-    z-index: 1;
 }
 
 .auth_wrapper {
@@ -122,9 +121,10 @@ header .logo {
     border: none;
     outline: 1px solid #000;
     box-sizing: border-box;
+    background: #FFF;
 }
 
-.field:focus, .field_text:focus, .form_field_conteiner > input:focus {
+.field:focus, .field_text:focus, .form_field_conteiner > input:focus, .inline_group_field input:not(input[type="radio"]):focus {
     outline: 2px solid var(--color-main);
 }
 
@@ -137,6 +137,7 @@ header .logo {
     color: #FE642E;
     transition: .3s;
     font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     background: #FFF;
 }
@@ -155,6 +156,7 @@ header .logo {
     color: #0AB668;
     transition: .3s;
     font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     background: #FFF;
 }
@@ -172,7 +174,8 @@ header .logo {
     box-sizing: border-box;
     color: #3670C9;
     transition: .3s;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     background: #FFF;
 }
@@ -190,7 +193,8 @@ header .logo {
     box-sizing: border-box;
     color: #E54B3C;
     transition: .3s;
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
     background: #FFF;
 }
@@ -302,7 +306,7 @@ form label {
 
 .product_container {
     display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 	gap: 15px;
 }
 
@@ -550,6 +554,7 @@ form label {
     max-height: calc(100vh - 40px);
     overflow-y: auto;
     padding: 15px;
+    border-radius: 5px;
 }
 
 h3.f_title {
@@ -585,6 +590,129 @@ form > fieldset {
     padding-top: 10px;
 }
 
+.main_sum_container {
+    border-top: 1px solid var(--color-main);
+    color: var(--color-main);
+}
+
+.filter_form {
+    margin-bottom: 25px;
+}
+
+.filter_form legend {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--color-main)
+}
+
+.field_front {
+    font-size: 16px;
+    padding: 7px;
+    margin-bottom: 12px;
+}
+
+.button_box_center {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    column-gap: 5px;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.added_fields_btn {
+    color: var(--color-main);
+}
+
+.button_box_center > img {
+    transition: .3s;
+    height: 10px;
+    width: 17px;
+}
+
+.button_box_center > span {
+    cursor: pointer;
+}
+
+.button_box_center[data-active="1"] > img.left {
+    transform: rotate(-180deg);
+}
+
+.button_box_center[data-active="1"] > img.right {
+    transform: rotate(180deg);
+}
+
+.added_field_container {
+    width: 100%;
+    margin-top: 0px;
+    max-height: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: .3s;
+}
+
+.button_box_center[data-active="1"] .added_field_container {
+    max-height: 1000px !important;
+    pointer-events: unset !important;
+    opacity: 1 !important;
+    margin-top: 15px !important;
+}
+
+.group_col_2 {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.group_col_2 > div {
+    width: 50%;
+}
+
+.group_col_2 label {
+    display: inline-block;
+}
+
+.group_col_2  .label_field {
+    width: 100%;
+    margin: 0 0 10px 0;
+}
+
+.group_col_2 .field_box {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    column-gap: 7px;
+}
+
+.group_col_2 .field_box label {
+    margin: 0;
+}
+
+.group_col_2 .field_box input:not(input[type="radio"]) {
+    width: 40%;
+}
+
+.group_col_2 .field_box input[type="radio"] {
+    margin: 0;
+}
+
+.inline_group_field {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.inline_group_field input[type="number"] {
+    border-radius: 3px;
+    border: none;
+    outline: 1px solid #000;
+    box-sizing: border-box;
+    padding: 3px;
+}
+
 #large_image > img {
     max-width: 100%;
     max-height: 100%;
@@ -593,6 +721,26 @@ form > fieldset {
 @media (min-width: 768px) {
     .logout_form, .login_reg_container {
         margin-left: auto;
+    }
+
+    .inline_group_field:first-child:after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 2px;
+        height: 100%;
+        border-radius: 2px;
+        opacity: 0.3;
+        background: #000;
+    }
+
+    .inline_group_field:first-child {
+        padding-right: 15px;
+    }
+
+    .inline_group_field:last-child {
+        padding-left: 15px;
     }
 }
 
@@ -603,6 +751,16 @@ form > fieldset {
 }
 
 @media (max-width: 768px) {
+    .group_col_2 > div {
+        width: 100%;
+    }
+
+    .group_col_2 {
+        flex-direction: column;
+        align-items: flex-start;
+        row-gap: 20px;
+    }
+
     .info_box_top > div:first-child {
         margin: 0 auto;
     }

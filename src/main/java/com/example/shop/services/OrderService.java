@@ -1,6 +1,7 @@
 package com.example.shop.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,11 @@ public class OrderService {
 
     public List<Order> getAllOrder() {
         return orderRepository.findAll();
+    }
+
+    public Order getOrderId(int id) {
+        Optional<Order> optionalOrder = orderRepository.findById(id);
+        return optionalOrder.orElse(null);
     }
 
     public List<Order> getByNumberLastPartString(String query) {

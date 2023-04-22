@@ -57,4 +57,16 @@ window.onload = function() {
             e.preventDefault();
         }
     });
+
+    if (document.querySelector('.added_fields_btn')) {
+        document.querySelector('.added_fields_btn').onclick = function() {
+            let active = Number(this.parentElement.dataset.active);
+
+            if (active === 0) {
+                this.parentElement.dataset.active = 1;
+            } else {
+                this.parentElement.dataset.active = 0;
+            }
+        }
+    }
 }

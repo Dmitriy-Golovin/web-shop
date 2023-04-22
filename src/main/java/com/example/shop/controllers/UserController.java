@@ -166,9 +166,15 @@ public class UserController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         List<Order> orderList = orderService.getByPersonId(personDetails.getPerson().getId());
+        float mainSum = 0;
+
+        for (Order order: orderList) {
+            mainSum += order.getPrice();
+        }
 
         model.addAttribute("orderList", orderList);
         model.addAttribute("title", "Ваши заказы");
+        model.addAttribute("mainSum", mainSum);
         return "front/user/order";
     }
 }

@@ -53,6 +53,9 @@
                     </div>
                 </div>
             </div>
+            <div th:if="${orderList.size() > 0}" class="main_sum_container">
+                <h3 th:text="${'Общая стоимость заказов: ' + mainSum}"></h3>
+            </div>
         </div>
         <footer>
             <a class="logo" href="/">web-shop.ru</a>

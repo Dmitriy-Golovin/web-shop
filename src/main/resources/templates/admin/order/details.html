@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title th:text="${title}"></title>
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/css/admin_main.css">
+    </head>
+    <body>
+        <header>
+            <a class="logo" href="/">Web-shop</a>
+            <ul class="nav_menu nav_menu_admin" data-active="0">
+                <li><a href="/admin/user">Пользователи</a></li>
+                <li><a href="/admin/category">Категории</a></li>
+                <li><a href="/admin/product">Товары</a></li>
+                <li><a href="/admin/order">Заказы</a></li>
+            </ul>
+            <img class="menu_burger" src="/img/icon_burger_menu_light.png" data-active="0">
+            <form class="logout_form" th:method="POST" th:action="@{/logout}">
+                <input type="submit" value="Выйти">
+            </form>
+        </header>
+        <div class="main">
+            <ul class="bread_crumb">
+                <li><a th:href="@{/admin/order}">Список заказов</a></li>
+                <li th:text="${title}"></li>
+            </ul>
+            <h1 th:text="${title}"></h1>
+            <div class="field_note_error" th:if="${error != null}" th:text="${error}"></div>
+            <!-- <form th:method="POST" th:action="@{/admin/order/change-status}">
+                <fieldset>
+                    <label for="query">Изменить мтатус заказа</label>
+                    <input type="hidden" name="orderId" th:value="${order.getId}">
+                    <select class="field" type="text" name="status" id="status">
+                        <option th:each="enum : ${T(com.example.shop.enumm.OrderStatusList).values()}"
+                            th:text="${enum.toString()}"
+                            th:value="${enum.ordinal()}">
+                        </option>
+                    </select>
+                    <div class="button_box_right">
+                        <input class="btn_add ml-auto" type="submit" value="Применить">
+                    </div>
+                </fieldset>
+            </form> -->
+            <div class="button_box" th:if="${lastStatus != null}">
+                <form th:if="${lastStatus.getStatus == 0}" th:method="POST" th:action="@{/admin/order/set-checkout-status}">
+                    <input type="hidden" name="orderId" th:value="${order.getId}">
+                    <input class="btn_edit" type="submit" value="Оформить заказ">
+                </form>
+                <form th:if="${lastStatus.getStatus == 1}" th:method="POST" th:action="@{/admin/order/set-delivered-status}">
+                    <input type="hidden" name="orderId" th:value="${order.getId}">
+                    <input class="btn_add_cart" type="submit" value="Установить статус ожидания">
+                </form>
+                <form th:if="${lastStatus.getStatus == 2}" th:method="POST" th:action="@{/admin/order/set-completed-status}">
+                    <input type="hidden" name="orderId" th:value="${order.getId}">
+                    <input class="btn_add" type="submit" value="Установить статус получения">
+                </form>
+            </div>
+            <div class="info_container">
+                <div>
+                    <div>ID</div>
+                    <div th:text="${order.getId}"></div>
+                </div>
+                <div>
+                    <div>Уникальный номер</div>
+                    <div th:text="${order.getNumber}"></div>
+                </div>
+                <div>
+                    <div>Название товара</div>
+                    <div>
+                        <a th:href="@{/admin/product/details/{id}(id=${order.getProduct.getId})}" th:text="${order.getProduct.getTitle}"></a>
+                    </div>
+                </div>
+                <div>
+                    <div>Изображение товара</div>
+                    <div th:each="img : ${order.getProduct.getProductImageList}" th:if="${img.getType() == 1}">
+                        <img class="zoom_img" th:src="'/image/' + ${img.getFileName}">
+                    </div>
+                </div>
+                <div>
+                    <div>Пользователь</div>
+                    <div>
+                        <a th:href="@{/admin/user/details/{id}(id=${order.getPerson.getId})}" th:text="${order.getPerson.getFullName}"></a>
+                    </div>
+                </div>
+                <div>
+                    <div>Стоимость</div>
+                    <div th:text="${order.getPrice}"></div>
+                </div>
+                <div>
+                    <div>Количество</div>
+                    <div th:text="${order.getCount}"></div>
+                </div>
+                <div>
+                    <div>Статус заказа</div>
+                    <div th:text="${order.getStatusValue}"></div>
+                </div>
+                <div>
+                    <div>Дата создания</div>
+                    <div th:text="${#temporals.format(order.getCreatedAt(), 'dd-MMM-yyyy')}"></div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <a class="logo" href="/">web-shop.ru</a>
+        </footer>
+        <div class="modal" id="large_image" data-active="0">
+            <img src="">
+        </div>
+        <script src="/js/main.js"></script>
+    </body>
+</html>
