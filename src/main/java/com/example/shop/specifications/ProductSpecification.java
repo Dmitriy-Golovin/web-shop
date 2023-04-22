@@ -31,10 +31,11 @@ public class ProductSpecification implements Specification<Product> {
 
         if (StringUtils.isNotBlank(search)) {
 
-            Predicate likeCenter = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + search.toLowerCase() + "%");
-            Predicate likeStart = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), search.toLowerCase()  + "%");
-            Predicate likeEnd = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + search.toLowerCase() );
-            predicates.add(criteriaBuilder.or(likeCenter, likeStart, likeEnd));
+            // Predicate likeCenter = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + search.toLowerCase() + "%");
+            // Predicate likeStart = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), search.toLowerCase()  + "%");
+            // Predicate likeEnd = criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + search.toLowerCase() );
+            // predicates.add(criteriaBuilder.or(likeCenter, likeStart, likeEnd));
+            predicates.add(criteriaBuilder.like(criteriaBuilder.lower(root.get("title")), "%" + search.toLowerCase() + "%"));
         }
 
         if (StringUtils.isNotBlank(categoryId)) {
